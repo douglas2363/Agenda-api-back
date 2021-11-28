@@ -25,6 +25,10 @@ public class Contato {
     @Column
     private Boolean favorito;
 
+    @Column
+    @Lob
+    private byte[] foto;
+
 
 
 }
