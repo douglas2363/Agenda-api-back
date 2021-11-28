@@ -31,16 +31,18 @@ public class ContatoController {
     }
 
     @GetMapping
-    public List<Contato> list(@PathVariable Integer id){
+    public List<Contato> list(){
         return contatoRepository.findAll();
     }
 
 
     @PatchMapping("{id}/favorito")
-    public void favorite(@PathVariable Integer id, @RequestBody Boolean favorito){
+    public void favorite(@PathVariable Integer id){
             Optional<Contato> contato = contatoRepository.findById(id);
             contato.ifPresent( c -> {
-                c.setFavorito(favorito);
+                //Verifico se o contato ele esta favoritado, caso não esteja, nego o favorito passando como false.
+                boolean  favorito = c.getFavorito() == Boolean.TRUE;
+                c.setFavorito(!favorito);
                 contatoRepository.save(c);
             });
     }
